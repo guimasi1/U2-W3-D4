@@ -10,6 +10,7 @@ const viewButtons = Array.from(
 const modalImg = document.querySelector(".modal-body img");
 const small = Array.from(document.getElementsByTagName("small"));
 const searchForm = document.getElementsByTagName("form")[0];
+const cardTitles = Array.from(document.getElementsByClassName("card-title"));
 
 const hideCards = function (e) {
   e.target.closest(".card").remove();
@@ -24,9 +25,7 @@ viewButtons.forEach((button) => {
   button.addEventListener("click", function (e) {
     const cardDiv = e.target.closest(".card");
     const img = cardDiv.getElementsByTagName("img")[0];
-    console.log(img.src);
     modalImg.src = img.src;
-    console.log(modalImg.src);
   });
 });
 
@@ -40,11 +39,25 @@ url1 = "https://api.pexels.com/v1/search?query=[your-query]";
 url2 = "https://api.pexels.com/v1/search?query=[your-secondary-query]";
 url3 = "https://api.pexels.com/v1/search?query=nature";
 
+cardTitles.forEach((title) => {
+  title.classList.add("pointer");
+});
+imgs.forEach((img) => {
+  img.classList.add("pointer");
+});
+
 const renderImgs = (array) => {
   array.forEach((element, i) => {
     imgs[i].src = element.src.original;
     // Aggiungo un add event listener per la pagina dei dettagli
     imgs[i].addEventListener("click", function () {
+      goToDetails(
+        element.src.original,
+        element.photographer,
+        element.photographer_url
+      );
+    });
+    cardTitles[i].addEventListener("click", function () {
       goToDetails(
         element.src.original,
         element.photographer,
