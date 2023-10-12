@@ -3,7 +3,6 @@ const imgUrl = addressBarContent.get("urlOfImg");
 const photographer = addressBarContent.get("photographer");
 const photographer_url = addressBarContent.get("photographerWebsite");
 const col = document.getElementById("column-1");
-console.log(col);
 const createCard = () => {
   col.innerHTML = `<div class="card">
       <img src="${imgUrl}" class="card-img-top" alt="image">

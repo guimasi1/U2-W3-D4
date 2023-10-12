@@ -4,6 +4,10 @@ const imgs = Array.from(document.getElementsByClassName("card-img-top"));
 const hideButtons = Array.from(
   document.querySelectorAll(".btn-group button:nth-of-type(2)")
 );
+const viewButtons = Array.from(
+  document.querySelectorAll(".btn-group button:nth-of-type(1)")
+);
+const modalImg = document.querySelector(".modal-body img");
 const small = Array.from(document.getElementsByTagName("small"));
 const searchForm = document.getElementsByTagName("form")[0];
 
@@ -14,6 +18,13 @@ const hideCards = function (e) {
 hideButtons.forEach((button) => {
   button.innerText = "Hide";
   button.addEventListener("click", hideCards);
+});
+
+viewButtons.forEach((button) => {
+  button.addEventListener("click", function (e) {
+    const cardDiv = e.target.closest(".card");
+    const img = cardDiv.getElementsByTagName("img")[0];
+  });
 });
 
 // Aggiungiamo la possibilità di cliccare sull'immagine e sul titolo per arrivare
@@ -54,7 +65,6 @@ const getImages = (url) => {
   })
     .then((res) => {
       if (res.ok) {
-        // console.log("ok");
         return res.json();
       } else {
         throw new Error("nope");
@@ -62,7 +72,6 @@ const getImages = (url) => {
     })
     .then((data) => {
       const arrayOfImgs = data.photos;
-      console.log(arrayOfImgs);
 
       changeText9mins(arrayOfImgs);
       renderImgs(arrayOfImgs);
@@ -88,6 +97,5 @@ searchForm.addEventListener("submit", function (e) {
   const searchInputValue = document.getElementsByTagName("input")[0].value;
 
   const urlToUse = `https://api.pexels.com/v1/search?query=${searchInputValue}`;
-  console.log(urlToUse);
   getImages(urlToUse);
 });
