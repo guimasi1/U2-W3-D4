@@ -24,6 +24,9 @@ viewButtons.forEach((button) => {
   button.addEventListener("click", function (e) {
     const cardDiv = e.target.closest(".card");
     const img = cardDiv.getElementsByTagName("img")[0];
+    console.log(img.src);
+    modalImg.src = img.src;
+    console.log(modalImg.src);
   });
 });
 
@@ -65,6 +68,7 @@ const getImages = (url) => {
   })
     .then((res) => {
       if (res.ok) {
+        // console.log("ok");
         return res.json();
       } else {
         throw new Error("nope");
@@ -72,6 +76,7 @@ const getImages = (url) => {
     })
     .then((data) => {
       const arrayOfImgs = data.photos;
+      console.log(arrayOfImgs);
 
       changeText9mins(arrayOfImgs);
       renderImgs(arrayOfImgs);
@@ -97,5 +102,6 @@ searchForm.addEventListener("submit", function (e) {
   const searchInputValue = document.getElementsByTagName("input")[0].value;
 
   const urlToUse = `https://api.pexels.com/v1/search?query=${searchInputValue}`;
+  console.log(urlToUse);
   getImages(urlToUse);
 });
